@@ -22,15 +22,17 @@
 			<input type="submit"	name="login"	value="Log In">		
 		</form>
 		<br/>
-		<form action="/signup">
-			If you not have get a one here<br/>
-			<div class="textstd">User name: <input type="text" name="username"></div> * require<br/>
-			<div class="textstd">Password : </div><input type="password" name ="password"> * require<br/>
-			<div class="textstd">Nick :	</div> <input type="text" name="nick"><br/>
-			<div class="textstd">Birth :</div> 	<input type="text" name="birth"><br/>
+		<form action="/signin">
+		<label style="color: #6495ED;"> <h2> If you not have get one here :)</h2></label><br/>
+			<pre>
+			User name: <input type="text" name="username"> * require<br/>
+			Password : <input type="password" name ="password"> * require<br/>
+			Nick     : <input type="text" name="nick"><br/>
+			Birth    : <input type="text" name="day" size="5">  <input type="text" name="month" size="5">  <input type="text" name="year" size="5"><br/>
 			And tell us something about you <br/>
-			<div class="textstd">About </div><input type="text" name="about" size="30*50"><br/>			
+			<textarea name="about" rows="10" cols="40" ></textarea><br/>			
 			<input type="submit" name="signin" value="Sign In"><br/>
+			</pre>
 		</form>
 	</div>
 	<div id="utilitytab">

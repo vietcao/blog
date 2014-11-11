@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.LoginDao;
+
+import model.User;
+
 /**
  * Servlet implementation class Login
  */
@@ -26,8 +30,24 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Login Servlet here");
+		// declecation and define variable 
+		String username;
+		String password;
+		User user;
+		username = request.getParameter("username");
+		password = request.getParameter("password");
+		user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		
+		// check user name password
+		if( LoginDao.checkLogin(user)){
+			request.getRequestDispatcher("/SignInSuccess.html").forward(request, response);
+		}else{
+			request.setAttribute("error", "Username and Password dosen't match! ..");
+			request.getRequestDispatcher("/Error.jsp").forward(request, response);
+		}
+		
 		
 	}
 

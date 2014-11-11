@@ -59,7 +59,7 @@ public class MainFilter implements Filter {
 			return;
 		}
 		if( path.contains("/signin")){
-			req.getRequestDispatcher("/SignUpServlet").forward(request, response);
+			req.getRequestDispatcher("/SignInServlet").forward(request, response);
 			return;
 		}
 		

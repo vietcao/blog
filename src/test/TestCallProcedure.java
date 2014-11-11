@@ -32,7 +32,8 @@ public class TestCallProcedure {
 		}
 		// TODO Auto-generated method stub
 		try{
-		CallableStatement cs = conn.prepareCall("{call show_user()}");
+		CallableStatement cs = conn.prepareCall("{call checkduplicateUser(?)}");
+		cs.setString(1, "vietcao");
 		ResultSet rs = cs.executeQuery();
 
 
@@ -44,6 +45,7 @@ public class TestCallProcedure {
 		}catch(Exception ex){
 			ex.getStackTrace();
 		}
+		/*
 		try{
 		CallableStatement c2 = conn.prepareCall("{call show_userviaid(?)}");
 		c2.setInt(1, 2);
@@ -56,7 +58,7 @@ public class TestCallProcedure {
 		}
 		}catch(Exception e){
 			e.getStackTrace();
-		}
+		}*/
 	}
 
 }
