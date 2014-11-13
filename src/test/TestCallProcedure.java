@@ -1,6 +1,10 @@
 package test;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.User;
 
 public class TestCallProcedure {
 
@@ -33,7 +37,7 @@ public class TestCallProcedure {
 		// TODO Auto-generated method stub
 		try{
 		CallableStatement cs = conn.prepareCall("{call checkduplicateUser(?)}");
-		cs.setString(1, "vietcao");
+		cs.setString(1, "caominhviet@gmail.com");
 		ResultSet rs = cs.executeQuery();
 
 
@@ -45,6 +49,33 @@ public class TestCallProcedure {
 		}catch(Exception ex){
 			ex.getStackTrace();
 		}
+		try{
+			PreparedStatement st = conn.prepareStatement("select idfriend from friends where friends.id = (?)");
+			st.setInt(1, 1);
+			ResultSet rs = st.executeQuery();
+			ArrayList<Integer> id_arrays = new ArrayList<Integer>();
+			
+			while( rs.next()){
+				id_arrays.add(rs.getInt("idfriend"));
+			}
+			for( int j =0; j< id_arrays.size(); j++){
+				st = conn.prepareStatement("select * from posts where posts.userid = (?)");
+				st.setInt(1, id_arrays.get(j));
+				rs = st.executeQuery();
+				while(rs.next()){
+					System.out.println(rs.getString("content"));
+				}
+			}
+
+			}catch(Exception e) {
+				e.getStackTrace();
+			}
+			
+			
+		
+		
+	
+		
 		/*
 		try{
 		CallableStatement c2 = conn.prepareCall("{call show_userviaid(?)}");
@@ -59,6 +90,6 @@ public class TestCallProcedure {
 		}catch(Exception e){
 			e.getStackTrace();
 		}*/
+	
 	}
-
 }

@@ -51,6 +51,7 @@ public class MainFilter implements Filter {
 				req.getRequestDispatcher("/PostServlet").forward(request, response);
 				return;
 			}
+			request.setAttribute("query", req.getQueryString());
 			req.getRequestDispatcher("/UserServlet").forward(request, response);
 			return;
 		}
