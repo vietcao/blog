@@ -7,6 +7,21 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="stylesheet/main.css">
+<style type="text/css">
+	.post{
+		width: 90%;
+		position: relative;
+		left: 5%;
+	}
+	.userwraper{
+		position: relative;
+		width: 50%;
+		left:  25%;
+	}
+
+
+
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -20,7 +35,12 @@
 	<div id="main">
 		<% ArrayList<Post> arr_post = (ArrayList<Post>)request.getAttribute("arr_post");
 			for(Post e : arr_post){ %>
-				<div class="post"> <%= e.getContent() %> </div>
+				<div class="post"> 
+					<div class = "userwraper">
+						<a href="/user/<%=e.getUser().getUsername()%>?id=<%=e.getId() %>"><%= e.getUser().getNick() %> </a>
+					</div>
+					<div class = "conteentwaper"><%=  e.getContent()  %> </div> 
+				</div>
 		<% } %>
 		
 		

@@ -11,20 +11,27 @@ public class LoginDao {
 	/**
 	 * @param args
 	 */
-	public static int checkLogin(User user){
+	// check login return User object or null if not correct
+	public static User checkLogin(User user){
 		Connection.Connections();
+		User result = new User();
 		try{
 			CallableStatement cs = Connection.con.prepareCall("{call checkLogin(?,?)}");
 			cs.setString(1, user.getUsername());
 			cs.setString(2, user.getPassword());
 			ResultSet rs = cs.executeQuery();
 			if( rs.next()){			
-				return rs.getInt("id");
+				result.setId(rs.getInt("id"));
+				result.setUsername(rs.getString("username"));
+				result.setNick(rs.getString("nick"));
+				result.setBirth(rs.getDate("birth"));
+				result.setAbout(rs.getString("about"));
+				return result;
 			}
 		}catch(Exception e){
 			e.getStackTrace();
 		}
-		return 0;
+		return null;
 	}
 
 }

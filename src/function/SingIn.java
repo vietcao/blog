@@ -60,7 +60,7 @@ public class SingIn extends HttpServlet {
 		}																		//	
 		if (request.getParameter("nick") != "") { nick = request.getParameter("nick"); }
 		if (request.getParameter("about") !="") { about = request.getParameter("about"); }
-		user = new User(username, password, nick, birth, about);
+		user = new User( username, password, nick, birth, about);
 		boolean success = SignInDao.addUser(user);
 		
 		if( success ){

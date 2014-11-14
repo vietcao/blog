@@ -4,30 +4,43 @@ import java.sql.Date;
 
 public class Post {
 	private
+		int id;
 		String content;
 		Date time_post;
 		Date time_edit;
 		int number_of_like;
-		
+		User user;
 		
 	public Post() {
 
 	}
-
-
-	public Post(String content, Date time_post, Date time_edit,
-			int number_of_like) {
+	public Post(int id, String content, Date time_post, Date time_edit,
+			int number_of_like, User user) {
 		super();
+		this.id = id;
 		this.content = content;
 		this.time_post = time_post;
 		this.time_edit = time_edit;
 		this.number_of_like = number_of_like;
+		this.user = user;
 	}
-
-
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public String getContent() {
 		return content;
-	}
+	}	
 
 
 	public void setContent(String content) {

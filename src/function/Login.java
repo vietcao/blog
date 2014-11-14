@@ -42,14 +42,14 @@ public class Login extends HttpServlet {
 		user.setPassword(password);
 		
 		// check user name password 
-		int flag_id; // store id of user just login or 0 if not correct
-		flag_id = LoginDao.checkLogin(user);
-		if( flag_id != 0){
+		User user_logined; // store user just login or null if not correct
+		user_logined = LoginDao.checkLogin(user);
+		if( user_logined != null){
 			Cookie ck = new Cookie("login", "true");
 			response.addCookie(ck);
 			request.setAttribute("query", "/index");
-			request.setAttribute("user_id", flag_id);
-			request.setAttribute("index_begin", 0);
+			request.setAttribute("user_logined", user_logined);
+			request.setAttribute("index_begin", 0);				// set begin of list post will be load at first time
 			request.getRequestDispatcher("/UserServlet").forward(request, response);
 		}else{
 			request.setAttribute("error", "Username and Password doesn't match! ..");

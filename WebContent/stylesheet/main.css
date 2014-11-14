@@ -1,11 +1,12 @@
 
 html{
-	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 body {
 	background-color: #DCDCDC;
-	position: relative;
-	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 #utilitytab {
@@ -16,7 +17,7 @@ body {
 }
 #main {
 	background-color: white;
-	position: absolute;
+	position: fixed;
 	width: 36%;
 	height: 100%;
 	border-left: 1%;
@@ -29,7 +30,7 @@ body {
 }
 #profile	{
 	background-color: #D3D3D3;
-	position: absolute;
+	position: fixed;
 	width: 20%;
 	height: 100%;
 	top: 50px;
@@ -38,7 +39,7 @@ body {
 
 #listfriend{
 	background-color: #D3D3D3;
-	position: absolute;
+	position: fixed;
 	width: 20%;
 	height: 100%;
 	top: 50px;

@@ -1,12 +1,7 @@
 package dao;
 
-import java.sql.CallableStatement;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.User;
-
 public class Connection {
 	static java.sql.Connection con;
 	/**
@@ -28,34 +23,6 @@ public class Connection {
 		}
 		
 	}
-	
-	//check user name not duplicate and then add User
-	
-	public static boolean addUser(User user){
-		Connections();
-		try{
-			CallableStatement cs = con.prepareCall("{call checkduplicateUser(?)}");
-			cs.setString(1, user.getUsername());
-			ResultSet rs2 =cs.executeQuery();
-			if( !rs2.next()){
-				System.out.println("check here");
-				cs = con.prepareCall("{call addUser(?,?,?,?,?)}");
-				cs.setString(1, user.getUsername());
-				cs.setString(2, user.getPassword());
-				cs.setString(3, user.getNick());
-				cs.setDate(4, user.getBirth());
-				cs.setString(5, user.getAbout());
-				cs.executeUpdate();
-			}else return false;
-		}catch(Exception e){
-			e.getStackTrace();
-		}
-		return true;
-	}
-	public static void main(String args[]){
-		
-		addUser(new User("Dds","dsd","dsd",null,"dads"));
-	}
-	
+
 }
 

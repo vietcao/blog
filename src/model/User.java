@@ -5,6 +5,7 @@ import java.sql.Date;
 public class User {
 
 	private
+		int id;
 		String username;
 		String password;
 		String nick;
@@ -16,8 +17,9 @@ public class User {
 
 		}
 		
-		public User(String username, String password, String nick, Date birth,
-				String about) {
+		
+		public User(String username, String password, String nick,
+				Date birth, String about) {
 			super();
 			this.username = username;
 			this.password = password;
@@ -25,6 +27,18 @@ public class User {
 			this.birth = birth;
 			this.about = about;
 		}
+
+		
+		public int getId() {
+			return id;
+		}
+
+
+		public void setId(int id) {
+			this.id = id;
+		}
+
+
 		public String getUsername() {
 			return username;
 		}

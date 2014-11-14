@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDao;
+import function.UserFunnc;
 
-import model.Post;
 
 /**
  * Servlet implementation class UserServlet
@@ -34,13 +32,10 @@ public class UserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		if(request.getAttribute("query") == "/index"){
-			int user_id = (int)request.getAttribute("user_id");
-			int index_begin = (int)request.getAttribute("index_begin");
-			ArrayList<Post> arr_post = UserDao.searchPost(user_id, index_begin);
-			//request.setAttribute("index_begin", index_begin+10);
-			request.setAttribute("arr_post", arr_post);
-			request.getRequestDispatcher("/user/index.jsp").forward(request, response);
+			UserFunnc.RedirectfromInside(request, response);
+			return;
 		}
+		response.sendRedirect("/welcome.html");
 		
 	}
 
