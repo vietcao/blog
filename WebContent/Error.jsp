@@ -9,18 +9,22 @@
 <title>Error</title>
 </head>
 <body>
-	<div id="main">
-		<% 
-			String error = (String)request.getAttribute("error");	
-		%>
-		<%= error %>
-		<input type="button" name="back" value="Go back" onclick="{window.history.back()}">	
-	</div>
 	<div id="utilitytab">
 		<h2 style="width: 30%; left: 20%;top:0px;position: absolute;" >Your Blog ! Stay touch with everyone </h2>
 		<button style="position: absolute; top: 10px;right: 30%;">Contact us !</button>
 	</div>
 	<div id="profile"></div>
 	<div id="listfriend"></div>
+	<div id="main">
+		<div class="main_element">
+			<% 
+				String error = (String)request.getAttribute("error");	
+			%>
+			<%= error %>
+			<input type="button" name="back" value="Go back" onclick="{window.history.back()}">	
+			<div style="top: 1000px;position: relative;"></div>
+		</div>
+	</div>
+	
 </body>
 </html>

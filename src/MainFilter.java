@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class MainFilter
@@ -40,8 +41,7 @@ public class MainFilter implements Filter {
 		// pass the request along the filter chain
 		//chain.doFilter(request, response);
 		String path = req.getRequestURI();
-		System.out.println(path);
-
+		
 		if( path.contains("/user")){
 			if( path.contains("/post")){
 				if( path.contains("/comment")){
@@ -51,6 +51,7 @@ public class MainFilter implements Filter {
 				req.getRequestDispatcher("/PostServlet").forward(request, response);
 				return;
 			}
+			request.setAttribute("uri", path);
 			request.setAttribute("query", req.getQueryString());
 			req.getRequestDispatcher("/UserServlet").forward(request, response);
 			return;
@@ -69,7 +70,17 @@ public class MainFilter implements Filter {
 		    chain.doFilter(request, response);
 		    return;
 		}
-		
+		if (path.startsWith("/javascript")) {
+		    // Just let container's default servlet do its job.
+		    chain.doFilter(request, response);
+		    return;
+		}
+		/*
+		if (path.startsWith("/user")) {
+		    // Just let container's default servlet do its job.
+		    chain.doFilter(request, response);
+		    return;
+		}*/
 		if( path.contains("/")){
 			
 			req.getRequestDispatcher("/welcome.html").forward(request, response);

@@ -4,7 +4,7 @@ html{
 	padding: 0;
 }
 body {
-	background-color: #DCDCDC;
+	background-color: #F5F5F5;
 	margin: 0;
 	padding: 0;
 }
@@ -16,28 +16,14 @@ body {
 	height: 50px;
 }
 #main {
-	background-color: white;
-	position: fixed;
-	width: 36%;
+	background-color:#F5F5F5; 
+	position: relative;
+	width: 40%;
 	height: 100%;
-	border-left: 1%;
-	border-right: 1%;
-	border-left: solid #C0C0C0;	
-	border-right: solid #C0C0C0;
-	border-top: solid #C0C0C0;
-	top: 60px;
-	right: 32%;
+	right: 30%;
+	left: 30%;
 }
 #profile	{
-	background-color: #D3D3D3;
-	position: fixed;
-	width: 20%;
-	height: 100%;
-	top: 50px;
-	right: 10%;
-}
-
-#listfriend{
 	background-color: #D3D3D3;
 	position: fixed;
 	width: 20%;
@@ -46,3 +32,19 @@ body {
 	left: 10%;
 }
 
+#listfriend{
+	background-color: #D3D3D3;
+	position: fixed;
+	width: 20%;
+	height: 100%;
+	top: 50px;
+	right: 10%;
+}
+
+.main_element{
+	background-color : white;
+	position: relative;
+	width: 90%;
+	left: 5%;
+	border: 1%;
+}
