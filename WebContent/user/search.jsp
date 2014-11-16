@@ -5,11 +5,11 @@
 <search>
 	<% for(User e: arr_user){ %>
 			<user>
-				<id> <%= e.getId() %></id>
-				<username> <%= e.getUsername() %> </username>
-				<nick>	<%= e.getNick() %> </nick>
-				<birth> <%= e.getBirth() %> </birth>
-				<about> <%= e.getAbout() %> </about>
+				<id><%=e.getId()%></id>
+				<username><%=e.getUsername() %></username>
+				<nick><%=e.getNick()%></nick>
+				<birth><%=e.getBirth() %></birth>
+				<about><%=e.getAbout() %></about>
 			</user>
 	<% } %>
 </search>

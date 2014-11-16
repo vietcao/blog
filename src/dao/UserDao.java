@@ -101,7 +101,7 @@ public class UserDao {
 		
 		// retrieve user normally via "nick" keyword
 		try{
-		 CallableStatement cs = Connection.con.prepareCall("{call searchUserViaNick(?)}");
+		 CallableStatement cs = Connection.con.prepareCall("{call showUserViaNick(?)}");
 		 cs.setString(1,input);
 		 ResultSet rs = cs.executeQuery();
 		 while( rs.next()){
@@ -119,10 +119,7 @@ public class UserDao {
 		}
 		return result;
 	}
-	
-	
-	
-	
+
 	
 	
 	
