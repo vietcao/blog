@@ -47,9 +47,11 @@ public class Login extends HttpServlet {
 		if( user_logined != null){
 			Cookie ck = new Cookie("login", "true");
 			response.addCookie(ck);
+			String id = String.valueOf(user_logined.getId());
+			ck = new Cookie("id", id );
+			response.addCookie(ck);
 			request.setAttribute("query", "/index");
 			request.setAttribute("user_logined", user_logined);
-			request.setAttribute("index_begin", 0);				// set begin of list post will be load at first time
 			request.getRequestDispatcher("/UserServlet").forward(request, response);
 		}else{
 			request.setAttribute("error", "Username and Password doesn't match! ..");

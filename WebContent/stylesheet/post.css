@@ -3,3 +3,45 @@
 	width: 90%;
 	
 }
+.userwraper{
+	position: relative;
+	left: 2%;
+	font-size: 20px;
+}
+.nick{
+	color: #5F9EA0;
+}
+.addfriendbtn{
+	position: absolute;
+	right : 2%;
+}
+a{
+	text-decoration: none;
+}
+.timepost{
+	position: relative;
+	left: 2%;
+	font-size: small;
+	color: olive;
+	font-style: oblique; 
+}
+.contentwraper{
+	position: relative;
+	left: 2%;
+	font-family:Helvetica;
+	font-size: 90%;
+}
+.likeicon{
+	position : relative;
+	width: 16px;
+	height: 16px;
+}
+.numberoflike{
+	position: relative;
+	left: 2%;
+}
+.postfunction{
+	position: relative;
+	left: 2%;
+	color: #483D8B;
+}

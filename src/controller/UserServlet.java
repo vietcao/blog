@@ -33,22 +33,33 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Handle request from inside
+		//--- Handle request "index" from inside
 		if(request.getAttribute("query") == "/index"){					
 			UserFunc.RedirectfromInside(request, response);
 			return;
 		}
 		
-		// Handle request from outside
+		// ---Handle request from outside
 		String path = (String)request.getAttribute("uri");
-		System.out.println(path);
 		path = path.substring(5); // delete /user
-		System.out.println(path);
 		
+		// Handle request "index" from outside
+		if(path.startsWith("/index")){
+			UserFunc.RedirectfromOutsite(request, response);
+			return;
+		}
+		// Handle load more post
+		if(path.startsWith("/loadmorePost")){
+			UserFunc.loadMorePost(request, response);
+			return;
+		}
+		
+		
+		// Handle request "search" from outside	
 		if(path.startsWith("/function")){
 			path = path.substring(9); // delete /function
 			System.out.println(path);
-			if(path.contains("/search")){
+			if(path.startsWith("/search")){
 				System.out.println("userservlet");
 				UserFunc.SearchUser(request, response);
 				return;

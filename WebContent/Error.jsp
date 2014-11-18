@@ -11,7 +11,6 @@
 <body>
 	<div id="utilitytab">
 		<h2 style="width: 30%; left: 20%;top:0px;position: absolute;" >Your Blog ! Stay touch with everyone </h2>
-		<button style="position: absolute; top: 10px;right: 30%;">Contact us !</button>
 	</div>
 	<div id="profile"></div>
 	<div id="listfriend"></div>

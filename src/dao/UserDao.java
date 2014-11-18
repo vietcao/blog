@@ -56,12 +56,12 @@ public class UserDao {
 				while(rs.next()){
 					Post post = new Post();
 					post.setUser(user_friend);
+					post.setId(rs.getInt("id"));
 					post.setContent(rs.getString("content")); 
 					post.setTime_post(rs.getDate("time_post"));
 					post.setTime_edit(rs.getDate("time_edit"));
 					post.setNumber_of_like(rs.getInt("number_of_like"));
 					result.add(post);
-					System.out.println(post.getContent());
 				}
 				
 			}
@@ -75,7 +75,8 @@ public class UserDao {
 	}
 	
 	//search user via keyword
-	public static ArrayList<User> searchUser(String input){
+	public static ArrayList<User> searchUserViaNick(String input){
+
 		Connection.Connections();
 		ArrayList<User> result = new ArrayList<User>();
 		
@@ -99,7 +100,7 @@ public class UserDao {
 			}
 		}
 		
-		// retrieve user normally via "nick" keyword
+		// retrieve user normally via "nick" keyword with pattern 
 		try{
 		 CallableStatement cs = Connection.con.prepareCall("{call showUserViaNick(?)}");
 		 cs.setString(1,input);
@@ -120,11 +121,30 @@ public class UserDao {
 		return result;
 	}
 
+	// search user via id
+	public static User searchUserViaId(int input){
+		User result = new User();
+		try{
+			 CallableStatement cs = Connection.con.prepareCall("{call showUserViaId(?)}");
+			 cs.setInt(1,input);
+			 ResultSet rs = cs.executeQuery();
+			if ( rs.next()){
+					result.setId(rs.getInt("id"));
+					result.setUsername(rs.getString("username"));
+					result.setNick(rs.getString("nick"));
+					result.setBirth(rs.getDate("birth"));
+					result.setAbout(rs.getString("about"));
+				}
+			 
+			}catch(Exception e){
+				e.getStackTrace();
+			}
+		return result;
+	}
 	
 	
 	
-	
-	
+
 	
 	
 	

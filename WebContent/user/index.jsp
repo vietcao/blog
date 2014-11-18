@@ -1,3 +1,6 @@
+<%@page import="util.MothHashMap"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.Locale"%>
 <%@page import="model.User"%>
 <%@page import="sun.font.EAttribute"%>
 <%@page import="model.Post"%>
@@ -7,72 +10,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="stylesheet/main.css">
-<style type="text/css">
-	.userwraper{
-		position: relative;
-		width: 50%;
-		left:  25%;
-	}
-	.addfriendbtn{
-		position: absolute;
-		right : 2%;
-	}
-
-
-
-</style>
-<script src="javascript/jquery-1.10.2.js"></script>
-<script language="javascript">
-	window.onscroll = scroll;
-	function scroll(){
-			if($(window).scrollTop() + $(window).height() == $(document).height() ) {
-			alert("bottom!");
-		}
-	
-	}
-	
-	function search(){
-		var searchkeyword = searchform.searchkeyword.value;
-		var xmlhttp;
-		var x,txt,i, xx,xxx;
-		
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange=function(){
-
-		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-				
-		  		txt = "<br/>";
-		   		x =xmlhttp.responseXML.documentElement.getElementsByTagName("user");
-		   		for(i= 0; i< x.length; i++){
-		   			xx="";
-		   			txt= txt + '<div class="main_element">';
-		   			xx = xx + '<a href="/user/function/addfriend?id='+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'"><input type="submit" class="addfriendbtn" name="add_friend" value=" + Add Friend "></a>';
-		   			xx = xx +  '<a href="/user/'+ x[i].getElementsByTagName("username")[0].childNodes[0].nodeValue+'?id='+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">'+x[i].getElementsByTagName("nick")[0].childNodes[0].nodeValue+'</a>';
-					xx = xx + " - "+ x[i].getElementsByTagName("birth")[0].childNodes[0].nodeValue + "<br/>";
-					xx = xx + x[i].getElementsByTagName("about")[0]	.childNodes[0].nodeValue;
-					
-		   			txt = txt + xx;
-					txt = txt +"</div>"+"<br/>";
-
-		   		}
-				document.getElementById("main").innerHTML=txt;
-				}
-		  }
-		xmlhttp.open("GET","/user/function/search?searchkeyword="+searchkeyword,true);
-		xmlhttp.send();
-	}
-</script>
+<link rel="stylesheet" type="text/css" href="/stylesheet/main.css">
+<link rel="stylesheet" type="text/css" href="/stylesheet/post.css">
+<script type="text/javascript"> document.cookie = "loadPost=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";</script>
+<script src="/javascript/jquery-1.10.2.js"></script>
+<script src="/javascript/loadmorePost.js"></script>
+<script src="/javascript/search.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Your Blog</title>
 </head>
 <body>
+	<% User user = (User)request.getAttribute("user_logined"); %>
 	<div id="utilitytab">
 		<h2 style="width: 30%; left: 20%;top:0px;position: absolute;" >Your Blog ! Stay touch with everyone </h2>
-		<button style="position: absolute; top: 10px;right: 30%;">Contact us !</button>
+		<a href="/user/index"><input type="button" style="position: absolute; top: 10px;right: 30%;" value="Home"></a>
 	</div>
 	<div id="profile">
-		<% User user = (User)request.getAttribute("user_logined"); %>
+		
 		<%= user.getNick() %><br/>
 		<%= user.getUsername() %><br/>
 		<%= user.getBirth() %><br/>
@@ -81,18 +35,27 @@
 	<div id="main">
 		<% ArrayList<Post> arr_post = (ArrayList<Post>)request.getAttribute("arr_post");
 			for(Post e : arr_post){ %>
+				<% Date date = e.getTime_post();%>
 				<div class="main_element"> 
 					<div class = "userwraper">
-						<a href="/user/<%=e.getUser().getUsername()%>?id=<%=e.getId() %>"><%= e.getUser().getNick() %> </a>
+						<a href="/user/<%=e.getUser().getUsername()%>?id=<%=e.getId() %>"><div class="nick"><%= e.getUser().getNick() %></div></a>
 					</div>
-					<div class = "conteentwaper"><%=  e.getContent()  %> </div>
+					<div class="timepost">
+						 Posted at: <%=MothHashMap.mothHM[date.getMonth()]%> <%=String.valueOf(date.getDate())%> <%= String.valueOf(date.getYear()+1900) %>
+					</div>
+					<div class ="numberoflike">
+						<img class="likeicon" src="/likeIcon.png"> <%=e.getNumber_of_like()%> people like this..
+					</div><br/>
+					<div class = "contentwraper"><%=  e.getContent()  %> </div>
+					<div class = "postfunction">
+						<a role="button" href="#" onclick="alert(<%=e.getId()%>)"> + Like</a>
+						<a href = "/post/comment/new?id=<%=e.getId()%>"> + Comment</a>
+					</div>
 				</div>
 				<br/>
 		<% } %>
 
-		<div>
-			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-		</div>
+		
 	</div>
 	<div id="listfriend">
 		<br/>

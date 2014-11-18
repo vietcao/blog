@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -35,11 +36,8 @@ public class MainFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
-		// pass the request along the filter chain
-		//chain.doFilter(request, response);
+		
 		String path = req.getRequestURI();
 		
 		if( path.contains("/user")){
@@ -66,12 +64,10 @@ public class MainFilter implements Filter {
 		}
 		
 		if (path.startsWith("/stylesheet")) {
-		    // Just let container's default servlet do its job.
 		    chain.doFilter(request, response);
 		    return;
 		}
 		if (path.startsWith("/javascript")) {
-		    // Just let container's default servlet do its job.
 		    chain.doFilter(request, response);
 		    return;
 		}
@@ -81,11 +77,12 @@ public class MainFilter implements Filter {
 		    chain.doFilter(request, response);
 		    return;
 		}*/
-		if( path.contains("/")){
+		if( path.equals("/")){
 			
 			req.getRequestDispatcher("/welcome.html").forward(request, response);
 			return;
 		}
+		chain.doFilter(request, response);
 	}
 
 	/**
