@@ -16,7 +16,7 @@ function search(){
 		   		for(i= 0; i< x.length; i++){
 		   			xx="";
 		   			txt= txt + '<div class="main_element">';
-		   			xx = xx + '<a href="/user/function/addfriend?id='+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'"><input type="submit" class="addfriendbtn" name="add_friend" value=" + Add Friend "></a>';
+		   			xx = xx + '<input type="submit" class="addfriendbtn" name="add_friend" value=" + Add Friend " onclick="addFriendRequest('+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" id="'+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">';
 		   			xx = xx +  '<a href="/user/'+ x[i].getElementsByTagName("username")[0].childNodes[0].nodeValue+'?id='+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">'+x[i].getElementsByTagName("nick")[0].childNodes[0].nodeValue+'</a>';
 					xx = xx + " - "+ x[i].getElementsByTagName("birth")[0].childNodes[0].nodeValue + "<br/>";
 					xx = xx + x[i].getElementsByTagName("about")[0]	.childNodes[0].nodeValue;
@@ -30,4 +30,9 @@ function search(){
 		  }
 		xmlhttp.open("GET","/user/function/search?searchkeyword="+searchkeyword,true);
 		xmlhttp.send();
+		
+	  var script = document.createElement('script');
+	  script.type = 'text/javascript';
+	  script.src = '/javascript/addFriendRequest.js';
+	  document.body.appendChild(script);
 }

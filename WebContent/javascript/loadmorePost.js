@@ -56,7 +56,7 @@
 				txt = txt + post;
 				
 			}
-			
+			if(txt == "") txt = '<br/><div style="text-align: center; color:#5F9EA0;">No more post to display</div>';
 			var x = document.getElementById("main").innerHTML;
 			txt = x+ txt;
 			document.getElementById("main").innerHTML = txt;

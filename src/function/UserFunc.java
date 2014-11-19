@@ -8,6 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.GetCookie;
+
 import model.Post;
 import model.User;
 import dao.UserDao;
@@ -32,17 +34,7 @@ public class UserFunc {
 	// retrieve post for outside redirect 
 	public static void RedirectfromOutsite(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		User user= new User();
-		Cookie[] ck = request.getCookies();
-		String s ="id";
-		String sid ="";
-		// search cookie id
-		for(int i=0; i< ck.length; i++){
-			if( s.equals(ck[i].getName())) {
-				sid = ck[i].getValue();
-				break;
-			}
-		}
-		
+		String sid = GetCookie.run(request, "id");
 		int id = Integer.parseInt(sid);
 		user = UserDao.searchUserViaId(id); // retrieve user to display
 		ArrayList<Post> arr_post = UserDao.searchPost(id, 0);
@@ -57,22 +49,8 @@ public class UserFunc {
 	
 	// load more post
 	public static void loadMorePost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		Cookie[] ck = request.getCookies();
-		System.out.println("loadnmorehere");
-		String s ="id";
-		String sid ="";
-		String sindex = "index_begin";
-		String index ="";
-		// search cookie id
-		for(int i=0; i< ck.length; i++){
-			if( s.equals(ck[i].getName())) {
-				sid = ck[i].getValue();
-			}
-			if( sindex.equals(ck[i].getName())) {
-				index = ck[i].getValue();
-			}
-		}
-		
+		String sid = GetCookie.run(request, "id");
+		String index = GetCookie.run(request, "index_begin");
 		int id = Integer.parseInt(sid);
 		int index_begin = Integer.parseInt(index);
 		ArrayList<Post> arr_post = UserDao.searchPost(id, index_begin);
@@ -84,10 +62,7 @@ public class UserFunc {
 		
 	}
 	
-	
-	
-	
-	
+
 	// search user via nick
 	public static void SearchUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String seachkeyword;
@@ -97,4 +72,26 @@ public class UserFunc {
 		request.setAttribute("arr_user", arr_user);
 		request.getRequestDispatcher("/user/search.jsp").forward(request, response);
 	}
+	
+	// add friend request
+	public static void AddFriendRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String id_requestStr = GetCookie.run(request, "id");
+		int id_request = Integer.parseInt(id_requestStr);
+		String id_acceptStr = request.getParameter("id");
+		int id_accept = Integer.parseInt(id_acceptStr);
+		
+		String result; 
+		
+		if(UserDao.addFriendRequest(id_request, id_accept)){ 	//return 1 to indicate already friend and 0 for not
+			result = "1";
+		}else result = "0";
+		
+		request.setAttribute("success", result);
+		request.getRequestDispatcher("/user/addFriendRequest.jsp").forward(request, response);
+
+	}
+
+
+
+
 }

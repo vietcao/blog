@@ -3,6 +3,7 @@ package dao;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
 import function.PostFunc;
 import function.UserFunc;
 
@@ -142,7 +143,40 @@ public class UserDao {
 		return result;
 	}
 	
+	// add friend request
 	
+	public static boolean addFriendRequest(int id_request, int id_accept){
+		Connection.Connections();
+		
+		try{
+			CallableStatement cs = Connection.con.prepareCall("{call checkAlreadyFriend(?,?)}"); // check already add friend yet
+			cs.setInt(1, id_request);
+			cs.setInt(2, id_accept);
+			ResultSet rs = cs.executeQuery();
+			
+			if( !rs.next()){
+				try{
+					cs = Connection.con.prepareCall("{call addFriendRequest(?,?)}"); // add to addFriend table to wait accept
+					cs.setInt(1, id_request);
+					cs.setInt(2, id_accept);
+					cs.executeUpdate();
+				}catch(Exception e1){ // if exception occur it mean row was exist and still run
+					
+				}
+				try{
+					cs = Connection.con.prepareCall("{call addFriend(?,?)}"); // add to friend table one row to indicate friend one way
+					cs.setInt(1, id_request);
+					cs.setInt(2, id_accept);
+					cs.executeUpdate();
+				}catch(Exception e2){
+					return false;
+				}
+			}else return false;
+		}catch(Exception e){
+			return false;
+		}
+		return true;
+	}
 	
 
 	

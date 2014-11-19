@@ -50,9 +50,10 @@ public class Login extends HttpServlet {
 			String id = String.valueOf(user_logined.getId());
 			ck = new Cookie("id", id );
 			response.addCookie(ck);
-			request.setAttribute("query", "/index");
-			request.setAttribute("user_logined", user_logined);
-			request.getRequestDispatcher("/UserServlet").forward(request, response);
+			//request.setAttribute("query", "/index");
+			//request.setAttribute("user_logined", user_logined);
+			//request.getRequestDispatcher("/UserServlet").forward(request, response);
+			response.sendRedirect("/user/index");
 		}else{
 			request.setAttribute("error", "Username and Password doesn't match! ..");
 			request.getRequestDispatcher("/Error.jsp").forward(request, response);

@@ -54,18 +54,13 @@ public class UserServlet extends HttpServlet {
 			return;
 		}
 		
-		
+		// -- Handle specific function
 		// Handle request "search" from outside	
 		if(path.startsWith("/function")){
 			path = path.substring(9); // delete /function
-			System.out.println(path);
 			if(path.startsWith("/search")){
-				System.out.println("userservlet");
 				UserFunc.SearchUser(request, response);
 				return;
-			}
-			if(path =="/addfriend"){
-				
 			}
 		}
 		
@@ -76,7 +71,19 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// ---Handle request from outside
+		String path = (String)request.getAttribute("uri");
+		path = path.substring(5); // delete /user
+		// -- Handle specific function
+		// Handle request "search" from outside	
+		if(path.startsWith("/function")){
+			path = path.substring(9); // delete /function
+			if(path.startsWith("/addfriend")){
+				String query = request.getParameter("query");
+				if(query.equals("request")){
+					UserFunc.AddFriendRequest(request, response);
+				}
+			}
+		}
 	}
-
 }
