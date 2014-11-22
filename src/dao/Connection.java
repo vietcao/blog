@@ -3,7 +3,7 @@ package dao;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class Connection {
-	static java.sql.Connection con;
+	public static java.sql.Connection con;
 	/**
 	 * @param args
 	 */

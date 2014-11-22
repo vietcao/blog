@@ -1,20 +1,20 @@
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Post {
 	private
 		int id;
 		String content;
-		Date time_post;
-		Date time_edit;
+		Timestamp time_post;
+		Timestamp time_edit;
 		int number_of_like;
 		User user;
 		
 	public Post() {
 
 	}
-	public Post(int id, String content, Date time_post, Date time_edit,
+	public Post(int id, String content, Timestamp time_post, Timestamp time_edit,
 			int number_of_like, User user) {
 		super();
 		this.id = id;
@@ -48,22 +48,22 @@ public class Post {
 	}
 
 
-	public Date getTime_post() {
+	public Timestamp getTime_post() {
 		return time_post;
 	}
 
 
-	public void setTime_post(Date time_post) {
+	public void setTime_post(Timestamp time_post) {
 		this.time_post = time_post;
 	}
 
 
-	public Date getTime_edit() {
+	public Timestamp getTime_edit() {
 		return time_edit;
 	}
 
 
-	public void setTime_edit(Date time_edit) {
+	public void setTime_edit(Timestamp time_edit) {
 		this.time_edit = time_edit;
 	}
 

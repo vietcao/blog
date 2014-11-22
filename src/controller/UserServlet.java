@@ -82,6 +82,18 @@ public class UserServlet extends HttpServlet {
 				String query = request.getParameter("query");
 				if(query.equals("request")){
 					UserFunc.AddFriendRequest(request, response);
+					return;
+				}
+				if(query.equals("getinfo")){
+					UserFunc.getInfoFriendRequest(request, response);
+					return;
+				}
+				if(query.equals("accept")){
+					UserFunc.acceptFriendRequest(request, response);
+					return;
+				}if(query.equals("deny")){
+					UserFunc.denyFriendRequest(request, response);
+					return;
 				}
 			}
 		}

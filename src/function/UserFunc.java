@@ -8,6 +8,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
+
 import util.GetCookie;
 
 import model.Post;
@@ -23,7 +26,7 @@ public class UserFunc {
 	public static void RedirectfromInside(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		User user_logined = (User)request.getAttribute("user_logined");
 		ArrayList<Post> arr_post = UserDao.searchPost(user_logined.getId(), 0);
-		//request.setAttribute("index_begin", index_begin+10);
+		 
 		request.setAttribute("arr_post", arr_post);
 		request.setAttribute("arr_user", arr_user);
 		Cookie index_ck = new Cookie("index_begin", "10");
@@ -90,8 +93,47 @@ public class UserFunc {
 		request.getRequestDispatcher("/user/addFriendRequest.jsp").forward(request, response);
 
 	}
+	
+	// get Info of each friend request for user can chose
+	public static void getInfoFriendRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-
-
-
+		String  sid = GetCookie.run(request, "id");
+		int id = Integer.parseInt(sid);
+		
+		ArrayList<User> result = UserDao.getInfoFriendRequest(id);
+		request.setAttribute("arr_request", result);
+		request.getRequestDispatcher("/user/getInfoFriendRequest.jsp").forward(request, response);
+		
+	}
+	
+	// accept a request add friend 
+	public static void acceptFriendRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String  sid = GetCookie.run(request, "id");
+		int id = Integer.parseInt(sid);
+		
+		String sid_friend = request.getParameter("id");
+		int id_friend = Integer.parseInt(sid_friend);
+		if ( UserDao.acceptFriendRequest(id, id_friend)){
+			request.setAttribute("result", "1");	
+		}else
+			request.setAttribute("result", "0");
+		
+		request.getRequestDispatcher("/user/result_message.jsp").forward(request, response);
+	}
+	
+	// deny a request add friend
+	public static void denyFriendRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String  sid = GetCookie.run(request, "id");
+		int id = Integer.parseInt(sid);
+		
+		String sid_friend = request.getParameter("id");
+		int id_friend = Integer.parseInt(sid_friend);
+		if ( UserDao.denyFriendRequest(id, id_friend)){
+			request.setAttribute("result", "1");
+			
+		}else
+			request.setAttribute("result", "0");
+		
+		request.getRequestDispatcher("/user/result_message.jsp").forward(request, response);
+	}
 }

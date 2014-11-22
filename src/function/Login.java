@@ -1,6 +1,8 @@
 package function;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -44,7 +46,13 @@ public class Login extends HttpServlet {
 		// check user name password 
 		User user_logined; // store user just login or null if not correct
 		user_logined = LoginDao.checkLogin(user);
+
 		if( user_logined != null){
+			/*Timestamp timepull;
+			timepull = LoginDao.getPullTime(user.getId());
+			String timepull = String.valueOf(timepull.)
+			Cookie  ck = new Cookie("timepull", a)*/
+			
 			Cookie ck = new Cookie("login", "true");
 			response.addCookie(ck);
 			String id = String.valueOf(user_logined.getId());

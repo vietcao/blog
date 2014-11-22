@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@page import="util.MothHashMap"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.util.Locale"%>
@@ -12,10 +13,29 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/stylesheet/main.css">
 <link rel="stylesheet" type="text/css" href="/stylesheet/post.css">
+<style type="text/css">
+	#friend_div{
+		position: relative;
+		top: 5px;
+		left: 70%;
+		display:inline
+	}
+	.denyfriendbtn{
+		position: absolute;
+		right: 2px;
+	}
+	.acceptfriendbtn{
+		position: absolute;
+		right: 80px;
+	}
+
+	
+</style>
 <script type="text/javascript"> document.cookie = "loadPost=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";</script>
 <script src="/javascript/jquery-1.10.2.js"></script>
 <script src="/javascript/loadmorePost.js"></script>
 <script src="/javascript/search.js"></script>
+<script src="/javascript/getInfoFriendRequest.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Your Blog</title>
 </head>
@@ -23,7 +43,10 @@
 	<% User user = (User)request.getAttribute("user_logined"); %>
 	<div id="utilitytab">
 		<h2 style="width: 30%; left: 20%;top:0px;position: absolute;" >Your Blog ! Stay touch with everyone </h2>
-		<a href="/user/index"><input type="button" style="position: absolute; top: 10px;right: 30%;" value="Home"></a>
+		<div id="friend_div"><a id="homebtn"href="/user/index"><input type="button" value="Home"></a></div>
+		<div id="friend_div"><input type= "button" id="friendbtn" onclick="showFriendNoti()" value="+ F"></div>
+		<div id="friend_div"><input type="button" id="newbtn" value="New"></div>
+		<div id="friendarea" style="position: relative; top:7px; left: 56%; width: 20%; background-color: white; z-index: 1"></div>
 	</div>
 	<div id="profile">
 		
@@ -35,13 +58,13 @@
 	<div id="main">
 		<% ArrayList<Post> arr_post = (ArrayList<Post>)request.getAttribute("arr_post");
 			for(Post e : arr_post){ %>
-				<% Date date = e.getTime_post();%>
+				<% Timestamp date = e.getTime_post();%>
 				<div class="main_element"> 
 					<div class = "userwraper">
 						<a href="/user/<%=e.getUser().getUsername()%>?id=<%=e.getId() %>"><div class="nick"><%= e.getUser().getNick() %></div></a>
 					</div>
 					<div class="timepost">
-						 Posted at: <%=MothHashMap.mothHM[date.getMonth()]%> <%=String.valueOf(date.getDate())%> <%= String.valueOf(date.getYear()+1900) %>
+						 Posted at: <%=MothHashMap.mothHM[date.getMonth()]%> <%=String.valueOf(date.getDate())%> <%= String.valueOf(date.getYear()+1900) %>						
 					</div>
 					<div class ="numberoflike">
 						<img class="likeicon" src="/likeIcon.png"> <%=e.getNumber_of_like()%> people like this..

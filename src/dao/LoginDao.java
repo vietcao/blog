@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.CallableStatement;
+import java.sql.Timestamp;
 
 import java.sql.ResultSet;
 
@@ -32,6 +33,24 @@ public class LoginDao {
 			e.getStackTrace();
 		}
 		return null;
+	}
+	
+	public static Timestamp getPullTime(int id){
+		Timestamp result = null;
+		Connection.Connections();
+		CallableStatement cs;
+		ResultSet rs;
+		try{
+			cs = Connection.con.prepareCall("{call getTimePull(?)}");
+			cs.setInt(1, id);
+			rs = cs.executeQuery();
+			if(rs.next()){
+				result = rs.getTimestamp("time");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
