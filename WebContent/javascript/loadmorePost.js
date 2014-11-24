@@ -48,7 +48,7 @@
 				post = post + '</div><div class = "postfunction"><a role="button" href="#" onclick="alert(';
 				post = post + pid;
 				post = post + ')"> + Like </a>';
-				post = post + '<a href="/post/comment/new?id=';
+				post = post + '<a href="/user/post/comment/new?id=';
 				post = post + pid;
 				post = post + '"> + Comment';
 				post = post + '</a></div></div><br/>';

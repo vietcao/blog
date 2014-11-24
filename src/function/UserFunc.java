@@ -1,6 +1,7 @@
 package function;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+import sun.util.logging.resources.logging;
 import util.GetCookie;
 
 import model.Post;
@@ -136,4 +138,37 @@ public class UserFunc {
 		
 		request.getRequestDispatcher("/user/result_message.jsp").forward(request, response);
 	}
+	
+	// get New event
+	public static void getNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String sid = GetCookie.run(request, "id");
+		String stimepull = GetCookie.run(request, "timepull");
+		
+		int id = Integer.parseInt(sid);
+		long timepull = Long.parseLong(stimepull);
+		
+		ArrayList<Post> arr_post = UserDao.getNew(id, timepull);
+		request.setAttribute("arr_post", arr_post);
+		
+		request.getRequestDispatcher("/user/loadmorePost.jsp").forward(request, response);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

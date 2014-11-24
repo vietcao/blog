@@ -36,6 +36,7 @@
 <script src="/javascript/loadmorePost.js"></script>
 <script src="/javascript/search.js"></script>
 <script src="/javascript/getInfoFriendRequest.js"></script>
+<script src="/javascript/new.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Your Blog</title>
 </head>
@@ -44,9 +45,9 @@
 	<div id="utilitytab">
 		<h2 style="width: 30%; left: 20%;top:0px;position: absolute;" >Your Blog ! Stay touch with everyone </h2>
 		<div id="friend_div"><a id="homebtn"href="/user/index"><input type="button" value="Home"></a></div>
-		<div id="friend_div"><input type= "button" id="friendbtn" onclick="showFriendNoti()" value="+ F"></div>
-		<div id="friend_div"><input type="button" id="newbtn" value="New"></div>
-		<div id="friendarea" style="position: relative; top:7px; left: 56%; width: 20%; background-color: white; z-index: 1"></div>
+		<div id="friend_div"><input type= "button" id="friendbtn" onclick="showNoti('f')" value="+ F"></div>
+		<div id="friend_div"><input type="button" id="newbtn" onclick = "showNoti('n')" value="New"></div>
+		<div id="friendarea" style="position: relative; top:7px; left: 58%; width: 20%; background-color: white; z-index: 1"></div>
 	</div>
 	<div id="profile">
 		
@@ -56,6 +57,7 @@
 		<%= user.getAbout() %>
 	</div>
 	<div id="main">
+		<br/>
 		<% ArrayList<Post> arr_post = (ArrayList<Post>)request.getAttribute("arr_post");
 			for(Post e : arr_post){ %>
 				<% Timestamp date = e.getTime_post();%>
@@ -72,7 +74,7 @@
 					<div class = "contentwraper"><%=  e.getContent()  %> </div>
 					<div class = "postfunction">
 						<a role="button" href="#" onclick="alert(<%=e.getId()%>)"> + Like</a>
-						<a href = "/post/comment/new?id=<%=e.getId()%>"> + Comment</a>
+						<a href = "/user/post/comment/new?id=<%=e.getId()%>"> + Comment</a>
 					</div>
 				</div>
 				<br/>

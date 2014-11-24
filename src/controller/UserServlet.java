@@ -96,6 +96,10 @@ public class UserServlet extends HttpServlet {
 					return;
 				}
 			}
+			if(path.startsWith("/new")){
+				UserFunc.getNew(request, response);
+				return;
+			}
 		}
 	}
 }

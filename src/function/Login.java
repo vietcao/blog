@@ -48,19 +48,18 @@ public class Login extends HttpServlet {
 		user_logined = LoginDao.checkLogin(user);
 
 		if( user_logined != null){
-			/*Timestamp timepull;
-			timepull = LoginDao.getPullTime(user.getId());
-			String timepull = String.valueOf(timepull.)
-			Cookie  ck = new Cookie("timepull", a)*/
-			
-			Cookie ck = new Cookie("login", "true");
+			Timestamp timepull;
+			timepull = LoginDao.getPullTime(user_logined.getId()); 			// get Time pull when login to start update new 
+			String stimepull = String.valueOf(timepull.getTime());
+		
+			Cookie  ck = new Cookie("timepull", stimepull);			
+			response.addCookie(ck);
+			ck = new Cookie("login", "true");
 			response.addCookie(ck);
 			String id = String.valueOf(user_logined.getId());
 			ck = new Cookie("id", id );
 			response.addCookie(ck);
-			//request.setAttribute("query", "/index");
-			//request.setAttribute("user_logined", user_logined);
-			//request.getRequestDispatcher("/UserServlet").forward(request, response);
+			
 			response.sendRedirect("/user/index");
 		}else{
 			request.setAttribute("error", "Username and Password doesn't match! ..");

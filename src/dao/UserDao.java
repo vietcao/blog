@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import function.PostFunc;
@@ -25,7 +26,7 @@ public class UserDao {
 		ArrayList<Post> result = new ArrayList<Post>();
 		UserFunc.arr_user = new ArrayList<User>();
 		try{
-			CallableStatement cs = Connection.con.prepareCall("{call select_friendid(?)}"); // select all friend's id
+			CallableStatement cs = Connection.con.prepareCall("{call selectFriendId(?)}"); // select all friend's id
 			cs.setInt(1, user_id);
 			ResultSet rs = cs.executeQuery();
 			ArrayList<Integer> id_arrays = new ArrayList<Integer>();
@@ -258,4 +259,66 @@ public class UserDao {
 		if( result == 1) return true;
 		return false;
 	}
+	
+	
+	// get new frequenlly return a array post have time_edit sooner than time pull of user
+	public static ArrayList<Post> getNew(int id, long timepull){
+		Connection.Connections();
+		CallableStatement cs, cs1;
+		ResultSet rs, rs1;
+		ArrayList<Post> result = new ArrayList<>();
+		ArrayList<Integer> arr_fid= new ArrayList<>();
+		Timestamp timestamp = new Timestamp(timepull);
+		
+		try{
+			cs= Connection.con.prepareCall("{call selectFriendId(?)}"); // select list friend id
+			cs.setInt(1, id);
+			rs = cs.executeQuery();
+			while(rs.next()){
+				arr_fid.add(rs.getInt("idfriend"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		for(Integer idfriend : arr_fid){
+			
+			try{
+				cs = Connection.con.prepareCall("{call getNew(?,?)}");	 // retrieve all new post of each friend
+				cs.setInt(1, idfriend);
+				cs.setTimestamp(2, timestamp);			
+				rs = cs.executeQuery();
+				
+				User user = new User();
+				if( rs.isBeforeFirst()){								// if a friend have one or more new get User information to display
+					cs1 = Connection.con.prepareCall("{call showUserViaId(?)}");
+					cs1.setInt(1, idfriend);
+					rs1 = cs1.executeQuery();
+					if( rs1.next()){
+						
+						user.setId(rs1.getInt("id"));
+						user.setUsername(rs1.getString("username"));
+						user.setNick(rs1.getString("nick"));
+					}
+
+				}
+				while( rs.next()){
+					Post post = new Post();
+					post.setUser(user);
+					post.setId(rs.getInt("id"));
+					post.setContent(rs.getString("content"));
+					post.setTime_post(rs.getTimestamp("time_post"));
+					post.setNumber_of_like(rs.getInt("number_of_like"));
+					result.add(post);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return result;
+		
+	}
+	
+	
+	
 }

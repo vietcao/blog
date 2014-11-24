@@ -1,5 +1,5 @@
 var idcockie = getCookie('id');
-var txt ="";
+var fri_txt ="";
 
 setInterval(function () {getInfoFriendRequest()}, 5000);
 function getInfoFriendRequest(){
@@ -8,7 +8,7 @@ function getInfoFriendRequest(){
 	var  noti, request;
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
-		txt ="";
+		fri_txt ="";
 		input=xmlhttp.responseXML;
 		arr_request = input.documentElement.getElementsByTagName("user");
 		if(arr_request.length == 0 ){
@@ -26,12 +26,12 @@ function getInfoFriendRequest(){
 			username = arr_request[i].getElementsByTagName("username")[0].childNodes[0].nodeValue;
 			nick = arr_request[i].getElementsByTagName("nick")[0].childNodes[0].nodeValue;
 			request = '<div id="friend_element">'; 
-			request = request + '<a href="/user/'+ username+'?id='+id+'">'+nick+'</a>';
+			request = request + '<a href="/user/'+ username+'?id='+id+'"><div class ="nick" style="display: inline; font-size: 20px;">'+nick+'</div></a>';
 			request = request + '<input type="submit" class="denyfriendbtn" value=" Deny " onclick="addFriendDeny('+id+')" id="f_deny'+id+'">';
 			request = request + '<input type="submit" class="acceptfriendbtn" value=" Accept " onclick="addFriendAccept('+id+')" id="f_accept'+id+'">';
 			request = request + '</div>';
 			
-			txt = txt + request;
+			fri_txt = fri_txt + request;
 		}
 	}
 	xmlhttp.open("POST", "/user/function/addfriend", true);
@@ -39,16 +39,57 @@ function getInfoFriendRequest(){
 	xmlhttp.send("query=getinfo");
 }
 
-var enable= 1;
-function showFriendNoti(){
+var enable= 0;
+function showNoti(flag){
 	var notiarea = document.getElementById("friendarea");
 	
-	if( enable == 1 ){
-		notiarea.innerHTML = txt;
-		enable = 0;
-	}else{
-		notiarea.innerHTML="";
+	if( enable == 0 && flag=='f'){
+		notiarea.innerHTML = fri_txt;
+		
 		enable = 1;
+		return;
+	}
+	if( enable == 0 && flag=='n'){
+		notiarea.innerHTML = noti_txt;
+		
+		enable = 2;
+		return;
+	}
+	if( enable == 1 && flag=='f'){
+		notiarea.innerHTML ="";
+		
+		enable = 0;
+		return;
+	}
+	if( enable == 1 && flag=='n'){
+		notiarea.innerHTML = noti_txt;
+		
+		enable = 2;
+		return;
+	}
+	if( enable == 2 && flag=='f'){
+		notiarea.innerHTML = fri_txt;
+		
+		enable = 1;
+		return;
+	}
+	if( enable == 2 && flag=='n'){
+		notiarea.innerHTML = "";
+		
+		enable = 3;
+		return;
+	}
+	if( enable == 3 && flag=='f'){
+		notiarea.innerHTML = fri_txt;
+		
+		enable = 1;
+		return;
+	}
+	if( enable == 3 && flag=='n'){
+		notiarea.innerHTML = noti_txt;
+		
+		enable = 2;
+		return;
 	}
 }
 
