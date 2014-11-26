@@ -35,6 +35,7 @@ function getNew(){
 			year =  arr_post[i].getElementsByTagName("year")[0].childNodes[0].nodeValue;
 			numberoflike = arr_post[i].getElementsByTagName("numberoflike")[0].childNodes[0].nodeValue;
 			
+			//alert(pid);
 			post = '<br/><div class="main_element"><div class = "userwraper"><a href="/user/';
 			post = post + username;
 			post = post + "?id=";
@@ -55,9 +56,10 @@ function getNew(){
 			post = post + pid;
 			post = post + '"> + Comment';
 			if(idcockie == sid ){
-				post = post + '<div style="position: absolute; right: 2%; display: inline;"> <a href = "/user/post/edit?id="'+pid+'"> edit</a> <a role="button" href="#" onclick="delPost('+pid+')"> delete</a> </div>';
+				post = post + '<div style="position: absolute; right: 2%; display: inline;"> <a href = "/user/post/edit?id='+pid+'"> edit</a> <a role="button" href="#" onclick="delPost('+pid+')"> delete</a> </div>';
 			}
 			post = post + '</a></div></div><br/>';
+			
 			txt = txt + post;
 			
 			simple_content = content.substr(0,20);

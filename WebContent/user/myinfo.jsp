@@ -83,7 +83,7 @@
 				post = post + '<a href="/user/post?id=';
 				post = post + pid;
 				post = post + '"> + Comment';
-				post = post + '<div style="position: absolute; right: 2%; display: inline;"> <a href = "/user/post/edit?id="'+pid+'"> edit</a> <a role="button" href="#" onclick="delPost('+pid+')"> delete</a> </div>';
+				post = post + '<div style="position: absolute; right: 2%; display: inline;"> <a href = "/user/post/edit?id='+pid+'> edit</a> <a role="button" href="#" onclick="delPost('+pid+')"> delete</a> </div>';
 	
 				post = post + '</a></div></div><br/>';
 				
@@ -154,7 +154,7 @@
 						<a role="button" href="#" onclick="alert(<%=e.getId()%>)"> + Like</a>
 						<a href = "/user/post?id=<%=e.getId()%>"> + Comment</a>
 						<div style="position: absolute; right: 2%; display: inline;">
-						<a href = "/user/post/edit?id="<%=e.getId() %>"> edit</a>
+						<a href = "/user/post/edit?id=<%=e.getId() %>"> edit</a>
 						<a role="button" href="#" onclick="delPost(<%=e.getId()%>)"> delete</a>
 						</div>
 					</div>

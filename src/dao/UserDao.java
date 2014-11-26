@@ -57,7 +57,7 @@ public class UserDao {
 				cs = Connection.con.prepareCall("{call searchpost(?,?,?)}");	// retrieve all post of user's friend and each post 
 				cs.setInt(1, id_arrays.get(j));									//* attach to unique friend
 				cs.setInt(2, 0);
-				cs.setInt(3, 10); // pick 10 post newest of each friend
+				cs.setInt(3, index_begin + 10); // pick 10 post newest of each friend
 				rs = cs.executeQuery();
 				while(rs.next()){
 					Post post = new Post();

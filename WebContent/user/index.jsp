@@ -91,7 +91,7 @@
 						<a href = "/user/post?id=<%=e.getId()%>"> + Comment</a>
 						<%if(user.getId() == e.getUser().getId()) {%>
 						<div style="position: absolute; right: 2%; display: inline;">
-						<a href = "/user/post/edit?id="<%=e.getId() %>"> edit</a>
+						<a href = "/user/post/edit?id=<%=e.getId() %>"> edit</a>
 						<a role="button" href="#" onclick="delPost(<%=e.getId()%>)"> delete</a>
 						</div>
 						<%}%>

@@ -28,23 +28,35 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("post servlet here");
+		
+		String path = (String)request.getAttribute("uri");
+		path = path.substring(10); // delete /user/post
+		
+		if(path.equals("/edit")){
+			PostFunc.editPost(request,response);
+			return;
+		}
+		PostFunc.showPost(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("post servlet here");
+		
 		String path = (String)request.getAttribute("uri");
 		path = path.substring(10); // delete /user/post
-		System.out.println(path);
+		
 		if(path.equals("/new")){
 			PostFunc.addPost(request,response);
+			return;
+		}
+		if(path.equals("/update")){
+			PostFunc.updatePost(request, response);
+			return;
 		}
 		
 	}
-
+	
+	
 }

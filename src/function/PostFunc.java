@@ -16,6 +16,7 @@ import dao.PostDao;
 import util.GetCookie;
 import util.sortViaPost_time_edit;
 
+import model.Comment;
 import model.Post;
 
 public class PostFunc {
@@ -63,6 +64,59 @@ public class PostFunc {
 		}
 		request.setAttribute("post", post);
 		request.getRequestDispatcher("/post/newPost.jsp").forward(request, response);
+	}
+	//edit a Post
+	public static void editPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		int user_id;
+		String suser_id = GetCookie.run(request, "id");
+		user_id = Integer.valueOf(suser_id);
+		
+		String spost_id = request.getParameter("id");
+		int post_id = Integer.parseInt(spost_id);
+		
+		Post post = new Post();
+		post = PostDao.getPost(post_id);
+		
+		request.setAttribute("post", post);
+		request.getRequestDispatcher("/post/editPost.jsp").forward(request, response);
+	}
+	
+	// update a Post
+	public static void updatePost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		
+		String data = request.getParameter("data");
+	
+		String spost_id = request.getParameter("id");
+		int post_id = Integer.parseInt(spost_id);
+		
+		java.util.Date date = new Date();
+		Timestamp tp = new Timestamp(date.getTime());
+		
+		if( PostDao.updatePost(post_id, data, tp)){
+			request.setAttribute("success", "1");
+		}else
+			request.setAttribute("success", "0");
+		
+		request.getRequestDispatcher("/post/updatePost.jsp").forward(request, response);
+		
+	}
+	
+	// show a Post and all Comment of and to create a new comment
+	public static void showPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		
+		String spost_id = request.getParameter("id");
+		int post_id = Integer.parseInt(spost_id);
+		
+		Post post = new Post();
+		ArrayList<Comment> arr_com = new ArrayList<>();
+		
+		post = PostDao.getPost(post_id);
+		arr_com = PostDao.getComments(post_id);
+		
+		request.setAttribute("post", post);
+		request.setAttribute("arr_com", arr_com);
+		
+		request.getRequestDispatcher("/post/show.jsp").forward(request, response);
 	}
 }
 
