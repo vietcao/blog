@@ -39,6 +39,7 @@ public class MainFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		
 		String path = req.getRequestURI();
+		request.setAttribute("uri", path);
 		
 		if( path.contains("/user")){
 			if( path.contains("/post")){
@@ -49,8 +50,8 @@ public class MainFilter implements Filter {
 				req.getRequestDispatcher("/PostServlet").forward(request, response);
 				return;
 			}
-			request.setAttribute("uri", path);
-			request.setAttribute("query", req.getQueryString());
+			
+			//request.setAttribute("query", req.getQueryString());
 			req.getRequestDispatcher("/UserServlet").forward(request, response);
 			return;
 		}

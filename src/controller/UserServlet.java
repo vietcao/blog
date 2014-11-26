@@ -41,6 +41,7 @@ public class UserServlet extends HttpServlet {
 		
 		// ---Handle request from outside
 		String path = (String)request.getAttribute("uri");
+		
 		path = path.substring(5); // delete /user
 		
 		// Handle request "index" from outside
@@ -63,6 +64,7 @@ public class UserServlet extends HttpServlet {
 				return;
 			}
 		}
+		UserFunc.getUserInfo(request, response);
 		
 		
 	}
@@ -98,6 +100,14 @@ public class UserServlet extends HttpServlet {
 			}
 			if(path.startsWith("/new")){
 				UserFunc.getNew(request, response);
+				return;
+			}
+			if(path.startsWith("/edit")){
+				UserFunc.editUser(request, response);
+				return;
+			}
+			if(path.startsWith("/timepull")){
+				UserFunc.setTimePull(request, response);
 				return;
 			}
 		}

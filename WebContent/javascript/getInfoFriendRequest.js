@@ -1,3 +1,4 @@
+
 var idcockie = getCookie('id');
 var fri_txt ="";
 
@@ -51,7 +52,11 @@ function showNoti(flag){
 	}
 	if( enable == 0 && flag=='n'){
 		notiarea.innerHTML = noti_txt;
-		
+		var xmlhttp;
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "/user/function/timepull", true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send();
 		enable = 2;
 		return;
 	}
@@ -63,7 +68,11 @@ function showNoti(flag){
 	}
 	if( enable == 1 && flag=='n'){
 		notiarea.innerHTML = noti_txt;
-		
+		var xmlhttp;
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "/user/function/timepull", true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send();
 		enable = 2;
 		return;
 	}
@@ -87,7 +96,11 @@ function showNoti(flag){
 	}
 	if( enable == 3 && flag=='n'){
 		notiarea.innerHTML = noti_txt;
-		
+		var xmlhttp;
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "/user/function/timepull", true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send();
 		enable = 2;
 		return;
 	}

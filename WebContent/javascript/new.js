@@ -44,32 +44,36 @@ function getNew(){
 			post = post + '</div></a>';
 			post = post + '</div><div class="timepost">';
 			post = post + 'Posted at: '+ month+' ' + date + ' ' + year;
-			post = post + '</div><div class ="numberoflike"><img class="likeicon" src="/likeIcon.png">';
+			post = post + '</div><div class ="numberoflike"><img class="likeicon" src="/likeIcon.png"> ';
 			post = post + numberoflike;
 			post = post + ' people like this..</div><br/><div class = "contentwraper">';
 			post = post + content;
-			post = post + '</div><div class = "postfunction"><a role="button" href="#" onclick="alert(';
+			post = post + '</div><div class = "postfunction"><a role="button" href="#" onclick="likePost(';
 			post = post + pid;
 			post = post + ')"> + Like </a>';
-			post = post + '<a href="/user/post/comment/new?id=';
+			post = post + '<a href="/user/post?id=';
 			post = post + pid;
 			post = post + '"> + Comment';
+			if(idcockie == sid ){
+				post = post + '<div style="position: absolute; right: 2%; display: inline;"> <a href = "/user/post/edit?id="'+pid+'"> edit</a> <a role="button" href="#" onclick="delPost('+pid+')"> delete</a> </div>';
+			}
 			post = post + '</a></div></div><br/>';
 			txt = txt + post;
 			
 			simple_content = content.substr(0,20);
 			if(sid == idcockie){
 				new_noti = '<div id="new_vow"> You just have new thing in your post</div>';
-				new_noti = new_noti + '<div id="new_content">'+ simple_content +'</div>';
+				new_noti = new_noti + '<div id="new_content">'+ simple_content +'.....</div>';
 			}else{
 				new_noti = '<div id="new_vow">New thing in <div class="nick" style="display: inline">'+nick+"</div>'s post </div>";
-				new_noti =  new_noti + '<div id="new_content"><a href="/user/post/comment/new?id='+pid+'">'+ simple_content +'....</a></div>';
+				new_noti =  new_noti + '<div id="new_content"><a href="/user/post?id='+pid+'">'+ simple_content +'....</a></div>';
 			}
 			noti_txt = noti_txt + new_noti;
 		}
 		
 		var x = document.getElementById("main").innerHTML;
-		if(txt != old_txt){
+		var username=getCookie("loadPost");
+		if(txt != old_txt && username ==""){
 			old_txt = txt;
 			txt = txt + x;
 			document.getElementById("main").innerHTML = txt;

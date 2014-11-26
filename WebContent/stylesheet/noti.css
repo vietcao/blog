@@ -1,0 +1,14 @@
+	#friend_div{
+		position: relative;
+		top: 5px;
+		left: 70%;
+		display:inline
+	}
+	.denyfriendbtn{
+		position: absolute;
+		right: 2px;
+	}
+	.acceptfriendbtn{
+		position: absolute;
+		right: 80px;
+	}

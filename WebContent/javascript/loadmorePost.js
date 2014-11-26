@@ -1,23 +1,15 @@
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') c = c.substring(1);
-			if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-		}
-		return "";
-	}	
+
 	function loadmorePost(){
 		var xmlhttp;
-		var txt, input,i,post,arr_post;
+		var txt, input,i,post,arr_post, id;
 		var user, sid, username, nick;
 		var content,pid,  time, month, date, year, numberoflike;
 		xmlhttp = new XMLHttpRequest();
+		id = getCookie('id');
 		xmlhttp.onreadystatechange=function(){
 			txt ="";
 			input=xmlhttp.responseXML;
-		
+			
 			arr_post = input.documentElement.getElementsByTagName("post");
 			for(i=0; i< arr_post.length; i++){
 				
@@ -45,12 +37,15 @@
 				post = post + numberoflike;
 				post = post + 'people like this..</div><br/><div class = "contentwraper">';
 				post = post + content;
-				post = post + '</div><div class = "postfunction"><a role="button" href="#" onclick="alert(';
+				post = post + '</div><div class = "postfunction"><a role="button" href="#" onclick="likePost(';
 				post = post + pid;
 				post = post + ')"> + Like </a>';
-				post = post + '<a href="/user/post/comment/new?id=';
+				post = post + '<a href="/user/post?id=';
 				post = post + pid;
 				post = post + '"> + Comment';
+				if(id == sid ){
+					post = post + '<div style="position: absolute; right: 2%; display: inline;"> <a href = "/user/post/edit?id="'+pid+'"> edit</a> <a role="button" href="#" onclick="delPost('+pid+')"> delete</a> </div>';
+				}
 				post = post + '</a></div></div><br/>';
 				
 				txt = txt + post;

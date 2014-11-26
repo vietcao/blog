@@ -57,7 +57,9 @@ public class Login extends HttpServlet {
 			ck = new Cookie("login", "true");
 			response.addCookie(ck);
 			String id = String.valueOf(user_logined.getId());
-			ck = new Cookie("id", id );
+			ck = new Cookie("id", id );	
+			response.addCookie(ck);
+			ck = new Cookie("username", user_logined.getUsername());
 			response.addCookie(ck);
 			
 			response.sendRedirect("/user/index");

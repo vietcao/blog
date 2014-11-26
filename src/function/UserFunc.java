@@ -1,6 +1,7 @@
 package function;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -9,14 +10,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
-import sun.util.logging.resources.logging;
-import util.GetCookie;
-
 import model.Post;
 import model.User;
+import util.GetCookie;
 import dao.UserDao;
 
 public class UserFunc {
@@ -154,12 +150,107 @@ public class UserFunc {
 	}
 	
 	
+	// get User Information 
 	
+	public static void getUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String username_request;
+		String sid_request;
+		int id_request;
+		User user;
+		ArrayList<Post> arr_post;
+		ArrayList<User> arr_user;
+		
+		String sid = GetCookie.run(request, "id");
+		int id = Integer.parseInt(sid);
+		
+		String username = GetCookie.run(request, "username");
+		
+		
+		sid_request = request.getParameter("id");
+		String uri = (String)request.getAttribute("uri");
+		username_request = uri.substring(6);
+		
+		System.out.println(username_request);
+		if(sid_request == null){
+			id_request = UserDao.getIdViaUsername(username_request);
+		}else{
+			id_request = Integer.parseInt(sid_request);
+		}
+		
+		user = UserDao.searchUserViaId(id_request);
+		arr_post =UserDao.getPostViaUserId(id_request);
+		arr_user = UserDao.getListFriend(id_request);
+		
+		request.setAttribute("user", user);
+		request.setAttribute("arr_post", arr_post);
+		request.setAttribute("arr_user", arr_user);
+		
+		if(username.equals(username_request)){
+			request.getRequestDispatcher("/user/myinfo.jsp").forward(request, response);
+		}else{
+			request.getRequestDispatcher("/user/view.jsp").forward(request, response);
+		}
+		
+	}
+
+	 
+	// Edit User Information
 	
+	public static void editUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int id = 0;
+		String sid = GetCookie.run(request, "id");
+		id = Integer.parseInt(sid);
+		
+		String nick = null;
+		Date birth= null;
+		String about = null;
+		int day, month, year;
+		User user = new User();
+		User result = new User();
+		
+		if (request.getParameter("nick") != "") { nick = request.getParameter("nick"); }
+		if (request.getParameter("about") !="") { about = request.getParameter("about"); }
+		try{
+			day = Integer.parseInt(request.getParameter("day"));					//Convert to date	
+			month = Integer.parseInt(request.getParameter("month"))- 1;
+			year = Integer.parseInt(request.getParameter("year")) - 1900;
+			birth = new Date(year, month, day);	
+		}catch(NumberFormatException e){
+		}
+		
+		user.setId(id);
+		user.setNick(nick);
+		user.setBirth(birth);
+		user.setAbout(about);
+		
+		result = UserDao.editUser(user);
+		if(result.equals(user)){
+			request.setAttribute("success", "1");
+		}else
+			request.setAttribute("success", "0");
+		request.setAttribute("user", result);
+		request.getRequestDispatcher("/user/edit.jsp").forward(request, response);
+		
+	}
 	
-	
-	
-	
+	// reset time pull of user to live time
+	public static void setTimePull(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int id = 0;
+		String sid = GetCookie.run(request, "id");
+		id = Integer.parseInt(sid);
+		
+		java.util.Date date = new java.util.Date();
+		long timelog = date.getTime();
+		Timestamp timepull = new Timestamp(timelog);
+		String stimepull = String.valueOf(timelog);
+		
+		if(UserDao.setTimePull(id, timepull)){
+			Cookie ck = new Cookie("timepull",stimepull);
+			ck.setPath("/");
+			response.addCookie(ck);
+		}
+		request.getRequestDispatcher("/ok.html").forward(request, response);
+	}
 	
 	
 	
