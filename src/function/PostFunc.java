@@ -118,6 +118,22 @@ public class PostFunc {
 		
 		request.getRequestDispatcher("/post/show.jsp").forward(request, response);
 	}
+	
+	// show add one like to a Post
+	public static void likePost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		String spost_id = request.getParameter("postid");
+		int post_id = Integer.parseInt(spost_id);
+		
+		int number = PostDao.addLike(post_id);
+		if( number == 0){
+			request.setAttribute("success", "0");
+		}else{
+			request.setAttribute("success", "1");
+		}
+		String snumber = String.valueOf(number);
+		request.setAttribute("number", snumber);
+		request.getRequestDispatcher("/post/like.jsp").forward(request, response);
+	}
 }
 
 

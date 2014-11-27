@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import function.CommentFunc;
+import function.PostFunc;
+
 /**
  * Servlet implementation class Comment
  */
@@ -35,6 +38,13 @@ public class CommentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String path = (String)request.getAttribute("uri");
+		path = path.substring(18); // delete /user/post
+		if(path.equals("/new")){
+			CommentFunc.addComment(request, response);
+			return;
+		}
 	}
 
 }

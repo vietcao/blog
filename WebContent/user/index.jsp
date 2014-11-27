@@ -32,6 +32,8 @@
 <script src="/javascript/search.js"></script>
 <script src="/javascript/getInfoFriendRequest.js"></script>
 <script src="/javascript/new.js"></script>
+<script src="/javascript/like.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Your Blog</title>
 </head>
@@ -82,8 +84,8 @@
 					<div class="timepost">
 						 Posted at: <%=MothHashMap.mothHM[date.getMonth()]%> <%=String.valueOf(date.getDate())%> <%= String.valueOf(date.getYear()+1900) %>						
 					</div>
-					<div class ="numberoflike">
-						<img class="likeicon" src="/likeIcon.png"> <%=e.getNumber_of_like()%> people like this..
+					<div class ="numberoflike" >
+						<img class="likeicon" src="/likeIcon.png"> <div style="display: inline;" id="p_<%=e.getId()%>"><%=e.getNumber_of_like()%></div> people like this..
 					</div><br/>
 					<div class = "contentwraper"><%=  e.getContent()  %> </div>
 					<div class = "postfunction">

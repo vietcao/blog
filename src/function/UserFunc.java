@@ -228,6 +228,7 @@ public class UserFunc {
 			request.setAttribute("success", "1");
 		}else
 			request.setAttribute("success", "0");
+		
 		request.setAttribute("user", result);
 		request.getRequestDispatcher("/user/edit.jsp").forward(request, response);
 		

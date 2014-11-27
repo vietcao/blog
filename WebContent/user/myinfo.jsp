@@ -32,6 +32,7 @@
 <script src="/javascript/getInfoFriendRequest.js"></script>
 <script src="/javascript/new.js"></script>
 <script src="/javascript/editUser.js"></script>
+<script src="/javascript/like.js"></script>
 <script type="text/javascript">
 	function test(x){
 		
@@ -73,7 +74,7 @@
 				post = post + '</div></a>';
 				post = post + '</div><div class="timepost">';
 				post = post + 'Posted at: '+ month+' ' + day + ' ' + year;
-				post = post + '</div><div class ="numberoflike"><img class="likeicon" src="/likeIcon.png"> ';
+				post = post + '</div><div class ="numberoflike" id="p_'+pid+'"><img class="likeicon" src="/likeIcon.png"> ';
 				post = post + numberoflike;
 				post = post + ' people like this..</div><br/><div class = "contentwraper">';
 				post = post + content;
@@ -146,12 +147,12 @@
 					<div class="timepost">
 						 Posted at: <%=MothHashMap.mothHM[date.getMonth()]%> <%=String.valueOf(date.getDate())%> <%= String.valueOf(date.getYear()+1900) %>						
 					</div>
-					<div class ="numberoflike">
-						<img class="likeicon" src="/likeIcon.png"> <%=e.getNumber_of_like()%> people like this..
+					<div class ="numberoflike" >
+						<img class="likeicon" src="/likeIcon.png"> <div id="p_<%=e.getId()%>" style="display: inline;"><%=e.getNumber_of_like()%></div> people like this..
 					</div><br/>
 					<div class = "contentwraper"><%=  e.getContent()  %> </div>
 					<div class = "postfunction">
-						<a role="button" href="#" onclick="alert(<%=e.getId()%>)"> + Like</a>
+						<a role="button" href="#" onclick="likePost(<%=e.getId()%>)"> + Like</a>
 						<a href = "/user/post?id=<%=e.getId()%>"> + Comment</a>
 						<div style="position: absolute; right: 2%; display: inline;">
 						<a href = "/user/post/edit?id=<%=e.getId() %>"> edit</a>

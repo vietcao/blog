@@ -8,6 +8,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/stylesheet/main.css">
 <link rel="stylesheet" type="text/css" href="/stylesheet/post.css">
+<link rel="stylesheet" type="text/css" href="/stylesheet/noti.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript">
 	function updatePost(_id){
@@ -45,6 +46,7 @@
 <body>
 	<div id="utilitytab">
 		<h2 style="width: 30%; left: 20%;top:0px;position: absolute;" >Your Blog ! Stay touch with everyone </h2>
+		<div id="friend_div"><a id="homebtn"href="/user/index"><input type="button" value="Home"></a></div>
 	</div>
 	<div id="profile"></div>
 	<div id="listfriend"></div>

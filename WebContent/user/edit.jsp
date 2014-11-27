@@ -7,6 +7,11 @@
 	String success = (String)request.getAttribute("success");
 	User user = (User)request.getAttribute("user");
 	Date date = user.getBirth();
+	String nick = user.getNick();
+	Cookie ck = new Cookie("nick", nick );
+	
+	ck.setPath("/");
+	response.addCookie(ck);
 %>
 <edit_user>
 	<success><%=success %></success>

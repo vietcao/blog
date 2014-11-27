@@ -136,6 +136,7 @@ public class PostDao {
 				cs1.setInt(1, userid);
 				rs1 = cs1.executeQuery();
 				if( rs1.next()){
+					user.setId(rs1.getInt("id"));
 					user.setUsername(rs1.getString("username"));
 					user.setNick(rs1.getString("nick"));
 				}
@@ -147,5 +148,38 @@ public class PostDao {
 		}
 		return arr_com;
 		
+	}
+	// + 1 like to a Post and retrieve number of like
+	public static int addLike(int _postid){
+		int result = 0;
+		CallableStatement cs, cs1;
+		ResultSet rs1;
+		int success = 0;
+		
+		Connection.Connections();
+		try{
+			cs = Connection.con.prepareCall("{call addLikePost(?)}");
+			cs.setInt(1, _postid);
+			success = cs.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		if( success == 1 ){
+			try{
+			cs1 = Connection.con.prepareCall("{call getLikeOfPost(?)}");
+			cs1.setInt(1, _postid);
+			rs1 = cs1.executeQuery();
+			if(rs1.next()){
+				result = rs1.getInt("number_of_like");
+			}
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	
 	}
 }

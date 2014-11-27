@@ -55,6 +55,10 @@ public class PostServlet extends HttpServlet {
 			PostFunc.updatePost(request, response);
 			return;
 		}
+		if(path.equals("/like")){
+			PostFunc.likePost(request, response);
+			return;
+		}
 		
 	}
 	

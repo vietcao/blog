@@ -33,8 +33,8 @@
 				post = post + '</div></a>';
 				post = post + '</div><div class="timepost">';
 				post = post + 'Posted at: '+ month+' ' + date + ' ' + year;
-				post = post + '</div><div class ="numberoflike"><img class="likeicon" src="/likeIcon.png">';
-				post = post + numberoflike;
+				post = post + '</div><div class ="numberoflike" ><img class="likeicon" src="/likeIcon.png">';
+				post = post + '<div style="display: inline;" id="p_'+pid+'"> '+numberoflike +' </div>';
 				post = post + 'people like this..</div><br/><div class = "contentwraper">';
 				post = post + content;
 				post = post + '</div><div class = "postfunction"><a role="button" href="#" onclick="likePost(';
