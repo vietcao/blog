@@ -35,7 +35,7 @@ function getNew(){
 			year =  arr_post[i].getElementsByTagName("year")[0].childNodes[0].nodeValue;
 			numberoflike = arr_post[i].getElementsByTagName("numberoflike")[0].childNodes[0].nodeValue;
 			
-			//alert(pid);
+			
 			post = '<br/><div class="main_element"><div class = "userwraper"><a href="/user/';
 			post = post + username;
 			post = post + "?id=";
@@ -69,6 +69,7 @@ function getNew(){
 			}else{
 				new_noti = '<div id="new_vow">New thing in <div class="nick" style="display: inline">'+nick+"</div>'s post </div>";
 				new_noti =  new_noti + '<div id="new_content"><a href="/user/post?id='+pid+'">'+ simple_content +'....</a></div>';
+				
 			}
 			noti_txt = noti_txt + new_noti;
 		}
